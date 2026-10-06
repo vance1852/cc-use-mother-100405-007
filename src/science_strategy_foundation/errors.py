@@ -33,3 +33,14 @@ class ConflictError(DomainError):
 
     code = "conflict"
     status = 409
+
+
+class RuleViolation(DomainError):
+    """业务规则检查未通过（同意、伦理许可或样本量等）。"""
+
+    code = "rule_violation"
+    status = 422
+
+    def __init__(self, message: str, checks: list | None = None) -> None:
+        super().__init__(message)
+        self.checks = checks or []
